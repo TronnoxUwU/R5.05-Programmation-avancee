@@ -106,7 +106,7 @@ LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'Europe/Paris'
 
-DATE_INPUT_FORMATS = ('%d/%m/%Y','%Y -%m -%d')
+DATE_INPUT_FORMATS = ('%d/%m/%Y','%Y-%m-%d')
 
 USE_I18N = True
 
@@ -116,7 +116,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
