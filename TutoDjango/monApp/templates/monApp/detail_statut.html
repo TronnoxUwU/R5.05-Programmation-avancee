@@ -1,0 +1,11 @@
+{% extends 'monApp/base.html' %}
+{% block menu %}
+    <h1>Le statut demandé</h1>
+{% endblock %}
+{% block contenu %}
+    <a href="{% url 'statuts' %}">Retour à la liste des statuts</a>
+    <h2>{{ stat.libelleStatus }}</h2>
+    <ul>
+        <li>Id du statut : {{stat.idStatus }} </li>
+    </ul>
+{% endblock %}

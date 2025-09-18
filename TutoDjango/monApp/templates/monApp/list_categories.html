@@ -12,7 +12,7 @@
         <tbody>
         {% for cat in cats %}
             <tr>
-                <td>{{ cat.nomCat }} </td>
+                <td><a href="{% url 'categorie' cat.idCat %}">{{ cat.nomCat }} </a></td>
             </tr>
         {% endfor %}
         </tbody>
