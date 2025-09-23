@@ -1,17 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, JsonResponse
 from monApp.models import *
 from django.views.generic import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
-from forms import *
+from monApp.forms import ContactUsForm
+from django.core.mail import send_mail
 
 class HomeView(TemplateView):
     template_name = "monApp/page_home.html"
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['titreh1'] = f"Hello {self.kwargs.get('param')}"
+        context['param'] = f"Hello {self.kwargs.get('param')}"
         return context
 
     def post(self, request, **kwargs):
@@ -21,7 +22,17 @@ class AboutView(TemplateView):
     template_name = "monApp/page_home.html"
     def get_context_data(self, **kwargs):
         context = super(AboutView, self).get_context_data(**kwargs)
-        context['titreh1'] = "About us..."
+        context['param'] = "About us..."
+        return context
+
+    def post(self, request, **kwargs):
+        return render(request, self.template_name)
+    
+class EmailView(TemplateView):
+    template_name = "monApp/page_home.html"
+    def get_context_data(self, **kwargs):
+        context = super(EmailView, self).get_context_data(**kwargs)
+        context['param'] = "Email reçu !!!"
         return context
 
     def post(self, request, **kwargs):
@@ -35,13 +46,23 @@ class AboutView(TemplateView):
 #         return context
 
 #     def post(self, request, **kwargs):
-#         return render(request, self.template_name)
+#          return render(request, self.template_name)
     
 def ContactView(request):
-    form = ContactUsForm()
     titreh1 = "Contact us !"
-    return render(request, "monApp/page_home.html",{'titreh1':titreh1, 'form':form})
-    
+    if request.method=='POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            send_mail(
+            subject=f'Message from {form.cleaned_data["name"] or "anonyme"} via TutoDjango Contact form',
+            message=form.cleaned_data['message'],
+            from_email=form.cleaned_data['email'],
+            recipient_list=['admin@monApp.com'],)
+            return redirect('email-sent')
+    else:
+        form = ContactUsForm()
+    return render(request, "monApp/page_home.html",{'param':titreh1, 'form':form})
+
 class ProduitListView(ListView):
     model = Produit
     template_name = "monApp/list_produits.html"

@@ -15,6 +15,9 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'lst_prdts' %}">Produits</a>
                         </li>
                         <li class="nav-item">
@@ -25,6 +28,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'rayons' %}">Rayons</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">About us</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
