@@ -4,7 +4,14 @@ Baptiste RICHARD
 
 ## Commandes Utiles
 
+Création du virtualenv:
+`virtualenv ~/venv`
+
+Lancement du virtualenv:
 `source ~/venv/bin/activate`
+
+Installation des dépendances:
+`pip install -r requirements.txt`
 
 ## Suivi de la progression
 
