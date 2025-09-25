@@ -13,6 +13,7 @@
             <th>Date fabrication</th>
             <th>Catégorie</th>
             <th>Statut</th>
+            <th>Actions</th>
         </thead>
         <tbody>
         {% for prdt in prdts %}
@@ -23,8 +24,19 @@
                 <td>{{ prdt.dateFabProd }} </td>
                 <td>{{ prdt.categorie }} </td>
                 <td>{{ prdt.status }} </td>
+                <td>
+                    <a href="{% url 'prdt-chng' prdt.refProd %}" class="btn btn-warning btn-sm">modifier</a>
+                    <a href="{% url 'dlt-prdt' prdt.refProd %}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
             </tr>
         {% endfor %}
+            <tr>
+                <td colspan="8" class="text-center bg-light">
+                    <a href="{% url 'crt-prdt' %}" class="btn btn-primary">
+                        Créer un nouveau produit
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <p>

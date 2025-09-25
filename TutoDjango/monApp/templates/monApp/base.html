@@ -12,46 +12,60 @@
     <body>
         {% block nav %}
             <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'lst_prdts' %}">Produits</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'categories' %}">Catégories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'statuts' %}">Statuts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'rayons' %}">Rayons</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact' %}">Contact us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">About us</a>
-                        </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
-                        </li>
-                        {%else%}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Connexion</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Inscription</a>
-                        </li>
-                        {%endif%}
-                    </ul>
-                </div>
-            </nav >
-            {% block menu %}{% endblock %}
-            </nav >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Mon App</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Liens à gauche -->
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lst_prdts' %}">Produits</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'categories' %}">Catégories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'statuts' %}">Statuts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'rayons' %}">Rayons</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About us</a>
+                </li>
+            </ul>
+
+            <!-- Liens à droite -->
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                {% if user.is_authenticated %}
+                    <li class="nav-item d-flex align-items-center">
+                        <img src="{% static 'img/utilisateur.png' %}" alt="Description" width="40" height="40" class="me-2" />
+                        <a class="nav-link p-0">{{ user.username }}</a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center">
+                        <a class="nav-link text-danger" href="{% url 'logout' %}">Déconnexion</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Inscription</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
         {% endblock %}
         <main role="main" class="container top-pushed">
             <div class="jumbotron">
