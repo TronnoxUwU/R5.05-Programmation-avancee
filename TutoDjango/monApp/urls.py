@@ -5,32 +5,41 @@ from . import views
 urlpatterns = [
     # path('home/<param>', views.home, name='home'),
     # path('home/', views.home, name='home'),
+    # path('contact/',  views.ContactView.as_view(), name='contact'),
+    # path("produit/",views.ProduitCreate, name="crt-prdt"),
+    # path("produit/<pk>/update/",views.ProduitUpdate, name="prdt-chng"),
+
     path('home', views.HomeView.as_view(), name='home'),
     path('home/<param>', views.HomeView.as_view(), name='home'),
-    # path('contact/',  views.ContactView.as_view(), name='contact'),
+
     path('contact/',  views.ContactView, name='contact'),
     path('email/',  views.EmailView.as_view(), name='email-sent'),
+    
     path('about/', views.AboutView.as_view(), name='about'),
+
     path('produits/',views.ProduitListView.as_view(), name="lst_prdts"),
     path('produit/<pk>/',views.ProduitDetailView.as_view(), name='dtl_prdt'),
+
+    path("produit/",views.ProduitCreateView.as_view(), name="crt-prdt"),
+    path("produit/<pk>/update/",views.ProduitUpdateView.as_view(), name="prdt-chng"),
+    path("produit/<pk>/delete/",views.ProduitDeleteView.as_view(), name="dlt-prdt"),
+
     path('categories/',views.CategorietListView.as_view() ,name='categories'),
     path('categorie/<pk>/',views.CategorieDetailView.as_view() ,name='categorie'),
     path('categorie',views.CategorieCreateView.as_view() ,name='categorie-crt'),
     path('categorie/<pk>/update',views.CategorieUpdateView.as_view() ,name='categorie-chng'),
     path('categorie/<pk>/delete',views.CategorieDeleteView.as_view() ,name='categorie-dlt'),
+
     path('statuts/',views.StatutListView.as_view(),name='statuts'),
     path('statut/<pk>/',views.StatutDetailView.as_view(),name='statut'),
+
     path('rayons/',views.RayonListView.as_view(),name='rayons'),
     path('rayon/',views.RayonCreateView.as_view(),name='rayon-crt'),
     path('rayon/<pk>/',views.RayonDetailView.as_view(),name='rayon'),
     path('rayon/<pk>/update',views.RayonUpdateView.as_view() ,name='rayon-chng'),
     path('rayon/<pk>/delete',views.RayonDeleteView.as_view() ,name='rayon-dlt'),
+
     path('login/', views.ConnectView.as_view(), name='login'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('logout/', views.DisconnectView.as_view(), name='logout'),
-    # path("produit/",views.ProduitCreate, name="crt-prdt"),
-    path("produit/",views.ProduitCreateView.as_view(), name="crt-prdt"),
-    path("produit/<pk>/update/",views.ProduitUpdateView.as_view(), name="prdt-chng"),
-    #path("produit/<pk>/update/",views.ProduitUpdate, name="prdt-chng"),
-    path("produit/<pk>/delete/",views.ProduitDeleteView.as_view(), name="dlt-prdt"),
 ]
