@@ -28,43 +28,119 @@ class ProduitCreateView(CreateView):
         prdt = form.save()
         return redirect('dtl_prdt', prdt.refProd)
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Création d'un nouveau produit"
+        return context
+
+class CategorieCreateView(CreateView):
+    model = Categorie
+    form_class=CategorieForm
+    template_name = "monApp/create_produit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Création d'une nouvelle catégorie"
+        return context
+
+    def form_valid(self, form) -> HttpResponse:
+        cat = form.save()
+        return redirect('categorie', cat.idCat)
+    
+class RayonCreateView(CreateView):
+    model = Rayon
+    form_class=RayonForm
+    template_name = "monApp/create_produit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Création d'un nouveau rayon"
+        return context
+
+    def form_valid(self, form) -> HttpResponse:
+        ray = form.save()
+        return redirect('rayon', ray.idRayon)
+    
 class ProduitDeleteView(DeleteView):
     model = Produit
     template_name = "monApp/delete_produit.html"
     success_url = reverse_lazy('lst_prdts')
 
-def produit_delete(request, pk):
-    prdt = Produit.objects.get(pk=pk) # nécessaire pour GET et pour POST
-    if request.method == 'POST':
-        # supprimer le produit de la base de données
-        prdt.delete()
-        # rediriger vers la liste des produit
-        return redirect('lst_prdts')
-    # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
-    return render(request, 'monApp/delete_produit.html', {'object': prdt})
+class CategorieDeleteView(DeleteView):
+    model = Categorie
+    template_name = "monApp/delete_categorie.html"
+    success_url = reverse_lazy('categories')
+
+class RayonDeleteView(DeleteView):
+    model = Rayon
+    template_name = "monApp/delete_rayon.html"
+    success_url = reverse_lazy('rayons')
+
+# def produit_delete(request, pk):
+#     prdt = Produit.objects.get(pk=pk) # nécessaire pour GET et pour POST
+#     if request.method == 'POST':
+#         # supprimer le produit de la base de données
+#         prdt.delete()
+#         # rediriger vers la liste des produit
+#         return redirect('lst_prdts')
+#     # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
+#     return render(request, 'monApp/delete_produit.html', {'object': prdt})
     
 
-def ProduitUpdate(request, pk):
-    prdt = Produit.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = ProduitForm(request.POST, instance=prdt)
-        if form.is_valid():
-            # mettre à jour le produit existant dans la base de données
-            form.save()
-            # rediriger vers la page détaillée du produit que nous venons de mettre à jour
-            return redirect('dtl_prdt', prdt.refProd)
-    else:
-        form = ProduitForm(instance=prdt)
-    return render(request,'monApp/update_produit.html', {'form': form})
+# def ProduitUpdate(request, pk):
+#     prdt = Produit.objects.get(pk=pk)
+#     if request.method == 'POST':
+#         form = ProduitForm(request.POST, instance=prdt)
+#         if form.is_valid():
+#             # mettre à jour le produit existant dans la base de données
+#             form.save()
+#             # rediriger vers la page détaillée du produit que nous venons de mettre à jour
+#             return redirect('dtl_prdt', prdt.refProd)
+#     else:
+#         form = ProduitForm(instance=prdt)
+#     return render(request,'monApp/update_produit.html', {'form': form})
 
 class ProduitUpdateView(UpdateView):
     model = Produit
     form_class=ProduitForm
     template_name = "monApp/update_produit.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Modification d'un produit"
+        return context
+
     def form_valid(self, form) -> HttpResponse:
         prdt = form.save()
         return redirect('dtl_prdt', prdt.refProd)
+    
+class CategorieUpdateView(UpdateView):
+    model = Categorie
+    form_class=CategorieForm
+    template_name = "monApp/update_produit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Modification d'une catégorie"
+        return context
+
+    def form_valid(self, form) -> HttpResponse:
+        cat = form.save()
+        return redirect('categorie', cat.idCat)
+    
+class RayonUpdateView(UpdateView):
+    model = Rayon
+    form_class=RayonForm
+    template_name = "monApp/update_produit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Modification d'un rayon"
+        return context
+
+    def form_valid(self, form) -> HttpResponse:
+        ray = form.save()
+        return redirect('rayon', ray.idRayon)
 
 class HomeView(TemplateView):
     template_name = "monApp/page_home.html"

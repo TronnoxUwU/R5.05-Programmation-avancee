@@ -1,20 +1,32 @@
 {% extends 'monApp/base.html' %}
 
 {% block menu %}
-    <h1>Liste des categories</h1>
+    <h1>Liste des rayons</h1>
 {% endblock %}
 
 {% block contenu %}
     <table class="table">
         <thead>
             <th>Nom</th>
+            <th>Actions</th>
         </thead>
         <tbody>
         {% for ray in rays %}
             <tr>
                 <td><a href="{% url 'rayon' ray.idRayon %}">{{ ray.nomRayon }} </a></td>
+                <td>
+                    <a href="{% url 'rayon-chng' ray.idRayon %}" class="btn btn-warning btn-sm">modifier</a>
+                    <a href="{% url 'rayon-dlt' ray.idRayon %}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
             </tr>
         {% endfor %}
+            <tr>
+                <td colspan="8" class="text-center bg-light">
+                    <a href="{% url 'rayon-crt' %}" class="btn btn-primary">
+                        Créer un nouveau rayon
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
 
