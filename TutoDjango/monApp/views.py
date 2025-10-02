@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from monApp.forms import *
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
-from django.db.models import Count
+from django.db.models import Count, Prefetch
 
 # def ProduitCreate(request):
 #     if request.method == 'POST':
@@ -205,7 +205,7 @@ class ProduitListView(ListView):
     # queryset = Produit.objects.filter(refProd=2)
 
     def get_queryset(self ) :
-        return Produit.objects.order_by("prixUnitaireProd")
+        return Produit.objects.select_related('categorie').select_related('status')
 
     def get_context_data(self, **kwargs):
         context = super(ProduitListView, self).get_context_data(**kwargs)
@@ -230,6 +230,11 @@ class RayonListView(ListView):
     model = Rayon
     template_name = "monApp/list_rayons.html"
     context_object_name = "rays"
+
+    def get_queryset(self):
+        return Rayon.objects.prefetch_related(
+            Prefetch("contenirs", queryset=Contenir.objects.select_related("refProd")))
+
 
     def get_context_data(self, **kwargs):
         context = super(RayonListView, self).get_context_data(**kwargs)

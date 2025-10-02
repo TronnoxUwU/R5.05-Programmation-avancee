@@ -21,4 +21,4 @@ Installation des dépendances:
 - 23/09/2025 - Fin du TD 3, passage a la feuille 1 TP 3
 - 25/09/2025 - Fin du TP 3, todo : faire le tp mais pour rayons, categories...
 - 30/09/2025 - Fin du TP 3, todo fait sauf pour statuts passage au TD4
-- 30/09/2025 - TD4 page 8
+- 30/09/2025 - TD4 page 9
