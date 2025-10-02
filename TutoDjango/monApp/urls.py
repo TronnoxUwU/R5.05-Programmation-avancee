@@ -24,7 +24,7 @@ urlpatterns = [
     path("produit/<pk>/update/",views.ProduitUpdateView.as_view(), name="prdt-chng"),
     path("produit/<pk>/delete/",views.ProduitDeleteView.as_view(), name="dlt-prdt"),
 
-    path('categories/',views.CategorietListView.as_view() ,name='categories'),
+    path('categories/',views.CategorieListView.as_view() ,name='categories'),
     path('categorie/<pk>/',views.CategorieDetailView.as_view() ,name='categorie'),
     path('categorie',views.CategorieCreateView.as_view() ,name='categorie-crt'),
     path('categorie/<pk>/update',views.CategorieUpdateView.as_view() ,name='categorie-chng'),

@@ -8,15 +8,17 @@
     <table class="table">
         <thead>
             <th>Nom</th>
+            <th>Valeur marchande du rayon</th>
             <th>Actions</th>
         </thead>
         <tbody>
-        {% for ray in rays %}
+        {% for data in ryns_dt %}
             <tr>
-                <td><a href="{% url 'rayon' ray.idRayon %}">{{ ray.nomRayon }} </a></td>
+                <td><a href="{% url 'rayon' data.ray.idRayon %}">{{ data.ray.nomRayon }} </a></td>
+                <td>{{ data.total_stock }} €</td>
                 <td>
-                    <a href="{% url 'rayon-chng' ray.idRayon %}" class="btn btn-warning btn-sm">modifier</a>
-                    <a href="{% url 'rayon-dlt' ray.idRayon %}" class="btn btn-danger btn-sm">Supprimer</a>
+                    <a href="{% url 'rayon-chng' data.ray.idRayon %}" class="btn btn-warning btn-sm">modifier</a>
+                    <a href="{% url 'rayon-dlt' data.ray.idRayon %}" class="btn btn-danger btn-sm">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}

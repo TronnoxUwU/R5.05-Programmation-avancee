@@ -43,6 +43,6 @@ class Rayon(models.Model):
 class Contenir(models.Model):
     pk = models.CompositePrimaryKey("refProd", "idRayon")
     refProd = models.ForeignKey(Produit, on_delete=models.CASCADE)
-    idRayon = models.ForeignKey(Rayon, on_delete=models.CASCADE)
+    idRayon = models.ForeignKey(Rayon, on_delete=models.CASCADE, related_name='contenirs')
     qte = models.IntegerField()
 

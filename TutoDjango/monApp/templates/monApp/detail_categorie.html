@@ -4,8 +4,40 @@
 {% endblock %}
 {% block contenu %}
     <a href="{% url 'categories' %}">Retour à la liste des categories</a>
-    <h2>{{ cat.nomCat }}</h2>
-    <ul>
-        <li>Id de la categorie : {{cat.idCat }} </li>
-    </ul>
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2>{{ cat.nomCat }} contenant <strong>{{cat.nb_produits }}</strong> produit(s)</h2>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">{{ cat.nomCat }}</h3>
+            
+            <ul>
+                <li>Id de la categorie : {{cat.idCat }} </li>
+                <li>Nom de la categorie : {{cat.nomCat }} </li>
+            </ul>
+
+
+            <div class="row">
+                {% if prdts %}
+                    {% for prdt in prdts %}
+                    <div class="col-sm-3">
+                        <div class="card mb-2 text-center">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="card-title">{{ prdt.intituleProd }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <a href="{% url 'dtl_prdt' prdt.refProd %}" class="btn btn-primary mt-2">Détails</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">Aucun produit trouvé pour cette catégorie.</p>
+                {% endif %}
+            <div class="car-footer text-center">
+                <a href="{% url 'categorie-chng' cat.idCat %}" class="btn btn-warning mt-2">Modifier</a>
+                <a href="{% url 'categorie-dlt' cat.idCat %}" class="btn btn-danger mt-2">Supprimer</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
