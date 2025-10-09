@@ -9,6 +9,8 @@ from monApp.forms import *
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.db.models import Count, Prefetch
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # def ProduitCreate(request):
 #     if request.method == 'POST':
@@ -33,6 +35,23 @@ class ProduitCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['titre'] = "Création d'un nouveau produit"
         return context
+
+
+class ContenirCreateView(CreateView):
+    model = Contenir
+    form_class=ContenirForm
+    template_name = "monApp/create_produit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Ajouter un produit au rayon"
+        return context
+
+    def form_valid(self, form) -> HttpResponse:
+        form.instance.idRayon_id = self.kwargs['pk']
+        ray = form.save()
+        return redirect('rayon', self.kwargs['pk'])
+    
 
 class CategorieCreateView(CreateView):
     model = Categorie
@@ -87,7 +106,7 @@ class RayonDeleteView(DeleteView):
 #     # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
 #     return render(request, 'monApp/delete_produit.html', {'object': prdt})
     
-
+# @login_required(login_url='/monApp/login/')
 # def ProduitUpdate(request, pk):
 #     prdt = Produit.objects.get(pk=pk)
 #     if request.method == 'POST':
@@ -100,6 +119,7 @@ class RayonDeleteView(DeleteView):
 #     else:
 #         form = ProduitForm(instance=prdt)
 #     return render(request,'monApp/update_produit.html', {'form': form})
+
 
 class ProduitUpdateView(UpdateView):
     model = Produit
@@ -205,6 +225,9 @@ class ProduitListView(ListView):
     # queryset = Produit.objects.filter(refProd=2)
 
     def get_queryset(self ) :
+        query = self.request.GET.get('search')
+        if query:
+            return Produit.objects.filter(intituleProd__icontains=query).select_related('categorie').select_related('status')
         return Produit.objects.select_related('categorie').select_related('status')
 
     def get_context_data(self, **kwargs):
@@ -224,6 +247,9 @@ class CategorieListView(ListView):
     context_object_name = "cats"
 
     def get_queryset(self ) :
+        query = self.request.GET.get('search')
+        if query:
+            return Categorie.objects.filter(nomCat__icontains=query).annotate(nb_produits=Count('produits'))
         return Categorie.objects.annotate(nb_produits=Count('produits'))
     
 class RayonListView(ListView):
@@ -232,6 +258,10 @@ class RayonListView(ListView):
     context_object_name = "rays"
 
     def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            return Rayon.objects.filter(nomRayon__icontains=query).prefetch_related(
+                Prefetch("contenirs", queryset=Contenir.objects.select_related("refProd")))
         return Rayon.objects.prefetch_related(
             Prefetch("contenirs", queryset=Contenir.objects.select_related("refProd")))
 
@@ -243,7 +273,7 @@ class RayonListView(ListView):
         for rayon in context['rays']:
             total = 0
             for contenir in rayon.contenirs.all():
-                total += contenir.produit.prixUnitaireProd * contenir.Qte
+                total += contenir.refProd.prixUnitaireProd * contenir.qte
             ryns_dt.append({'ray': rayon,'total_stock': total})
                 
         context['ryns_dt'] = ryns_dt
@@ -292,10 +322,10 @@ class RayonDetailView(DetailView):
         total_nb_produit = 0
 
         for contenir in self.object.contenirs.all():
-            total_produit = contenir.produit.prixUnitaireProd * contenir.qte
-            prdts_dt.append({ 'produit': contenir.produit,
+            total_produit = contenir.refProd.prixUnitaireProd * contenir.qte
+            prdts_dt.append({ 'produit': contenir.refProd,
                               'qte': contenir.qte,
-                              'prix_unitaire': contenir.produit.prixUnitaireProd,
+                              'prix_unitaire': contenir.refProd.prixUnitaireProd,
                               'total_produit': total_produit} )
             total_rayon += total_produit
             total_nb_produit += contenir.qte
@@ -331,9 +361,11 @@ class RegisterView(TemplateView):
         else:
             return render(request, 'monApp/page_register.html')
   
+
 class DisconnectView(TemplateView):
     template_name = 'monApp/page_logout.html'
 
+    @method_decorator(login_required)
     def get(self, request, **kwargs):
         logout(request)
         return render(request, self.template_name)

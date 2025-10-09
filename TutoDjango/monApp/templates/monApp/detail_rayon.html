@@ -33,11 +33,14 @@
                                 <li>Quantité : {{data.qte }} </li>
                                 <li>Total : {{ data.total_produit}} €</li>
                             </ul>
-                            <a href="{% url 'dtl-prdt' data.produit.refProd %}" class="btn btn-primary mt-2">Détails</a>
+                            <a href="{% url 'dtl_prdt' data.produit.refProd %}" class="btn btn-primary mt-2">Détails</a>
+                            
                         </div>
+                        
                     </div>
                 </div>
                 {% endfor %}
+                <a href="{% url 'cntnr-crt' ray.idRayon %}" class="btn btn-success">Ajouter un produit </a>
             {% else %}
                 <p class="text-muted">Aucun produit trouvé pour cette catégorie.</p>
             {% endif %}

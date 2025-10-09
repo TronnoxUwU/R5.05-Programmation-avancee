@@ -38,8 +38,10 @@ urlpatterns = [
     path('rayon/<pk>/',views.RayonDetailView.as_view(),name='rayon'),
     path('rayon/<pk>/update',views.RayonUpdateView.as_view() ,name='rayon-chng'),
     path('rayon/<pk>/delete',views.RayonDeleteView.as_view() ,name='rayon-dlt'),
+    path('rayon/<pk>/cntnr', views.ContenirCreateView.as_view(), name='cntnr-crt'),
 
     path('login/', views.ConnectView.as_view(), name='login'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('logout/', views.DisconnectView.as_view(), name='logout'),
+    
 ]
