@@ -35,10 +35,12 @@ urlpatterns = [
 
     path('rayons/',views.RayonListView.as_view(),name='rayons'),
     path('rayon/',views.RayonCreateView.as_view(),name='rayon-crt'),
-    path('rayon/<pk>/',views.RayonDetailView.as_view(),name='rayon'),
+    path('rayon/<int:pk>/',views.RayonDetailView.as_view(),name='rayon'),
     path('rayon/<pk>/update',views.RayonUpdateView.as_view() ,name='rayon-chng'),
     path('rayon/<pk>/delete',views.RayonDeleteView.as_view() ,name='rayon-dlt'),
     path('rayon/<pk>/cntnr', views.ContenirCreateView.as_view(), name='cntnr-crt'),
+    path('rayon/<pk>/cntnr/<prod>/update', views.ContenirUpdateView.as_view(), name='cntnr-chng'),
+    path('rayon/<pk>/cntnr/<prod>/delete', views.ContenirDeleteView.as_view(), name='cntnr-dlt'),
 
     path('login/', views.ConnectView.as_view(), name='login'),
     path('register/', views.RegisterView.as_view(), name='register'),

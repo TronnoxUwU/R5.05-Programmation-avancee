@@ -11,6 +11,8 @@ from django.urls import reverse_lazy
 from django.db.models import Count, Prefetch
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 
 # def ProduitCreate(request):
 #     if request.method == 'POST':
@@ -96,6 +98,20 @@ class RayonDeleteView(DeleteView):
     template_name = "monApp/delete_rayon.html"
     success_url = reverse_lazy('rayons')
 
+class ContenirDeleteView(DeleteView):
+    model = Contenir
+    template_name = "monApp/delete_rayon.html"
+
+    def get_object(self, queryset=None):
+        id_rayon = self.kwargs.get('pk')
+        ref_prod = self.kwargs.get('prod')
+        return get_object_or_404(Contenir, idRayon=id_rayon, refProd=ref_prod)
+
+    def get_success_url(self):
+        return reverse('rayon', kwargs={'pk': self.object.idRayon.idRayon})
+
+
+
 # def produit_delete(request, pk):
 #     prdt = Produit.objects.get(pk=pk) # nécessaire pour GET et pour POST
 #     if request.method == 'POST':
@@ -119,6 +135,35 @@ class RayonDeleteView(DeleteView):
 #     else:
 #         form = ProduitForm(instance=prdt)
 #     return render(request,'monApp/update_produit.html', {'form': form})
+
+
+class ContenirUpdateView(UpdateView):
+    model = Contenir
+    form_class=ContenirModifForm
+    template_name = "monApp/update_produit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titre'] = "Modification de la contenace d'un produit"
+        return context
+    
+    def get_object(self, queryset=None):
+        id_rayon = self.kwargs.get('pk')   # premier paramètre de ton URL
+        ref_prod = self.kwargs.get('prod') # deuxième paramètre de ton URL
+        return get_object_or_404(Contenir, idRayon=id_rayon, refProd=ref_prod)
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)  # pas encore sauvegardé en base
+        if instance.qte == 0:
+            # Si la quantité est zéro, supprime l'objet s'il existe déjà
+            if instance.pk:
+                instance.delete()
+            # Redirige vers la page rayon (par ex) car objet supprimé
+            return redirect('rayon', self.kwargs.get('pk'))
+        else:
+            # Sinon sauvegarde normalement
+            instance.save()
+            return redirect('rayon', instance.idRayon.idRayon)
 
 
 class ProduitUpdateView(UpdateView):

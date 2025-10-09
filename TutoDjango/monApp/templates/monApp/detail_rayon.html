@@ -34,16 +34,16 @@
                                 <li>Total : {{ data.total_produit}} €</li>
                             </ul>
                             <a href="{% url 'dtl_prdt' data.produit.refProd %}" class="btn btn-primary mt-2">Détails</a>
-                            
+                            <a href="{% url 'cntnr-chng' ray.idRayon data.produit.refProd %}" class="btn btn-success mt-2">Modifier la contenance</a>
+                            <a href="{% url 'cntnr-dlt' ray.idRayon data.produit.refProd %}" class="btn btn-danger mt-2">Supprimer du rayon</a>
                         </div>
-                        
                     </div>
                 </div>
                 {% endfor %}
-                <a href="{% url 'cntnr-crt' ray.idRayon %}" class="btn btn-success">Ajouter un produit </a>
             {% else %}
                 <p class="text-muted">Aucun produit trouvé pour cette catégorie.</p>
             {% endif %}
+                <a href="{% url 'cntnr-crt' ray.idRayon %}" class="btn btn-success">Ajouter un produit </a>
             </div>
         </div>
     </div>

@@ -46,3 +46,13 @@ class Contenir(models.Model):
     idRayon = models.ForeignKey(Rayon, on_delete=models.CASCADE, related_name='contenirs')
     qte = models.IntegerField()
 
+    def save(self, *args, **kwargs):
+        if self.qte == 0:
+            # Si quantité est 0, supprime l'objet au lieu de le sauvegarder
+            if self.pk:  # vérifie que l'objet existe déjà en base
+                self.delete()
+            return None
+            # Sinon ne rien faire (évite de créer un objet qte=0)
+        else:
+            super().save(*args, **kwargs)
+
