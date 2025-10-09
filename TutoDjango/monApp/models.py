@@ -18,7 +18,7 @@ class Statut(models.Model):
 
 class Produit(models.Model):
     refProd = models.AutoField(primary_key=True)
-    intituleProd = models.CharField(max_length=200)
+    intituleProd = models.CharField(max_length=200, unique=True)
     prixUnitaireProd = models.DecimalField(max_digits=10, decimal_places=2)
     dateFabProd = models.DateField(null=True, blank=True)
     # Relation CIF : chaque produit appartient à 1 catégorie (0,N côté catégorie 1,1 côté produit)→
@@ -47,7 +47,7 @@ class Contenir(models.Model):
     qte = models.IntegerField()
 
     def save(self, *args, **kwargs):
-        if self.qte == 0:
+        if self.qte < 0:
             # Si quantité est 0, supprime l'objet au lieu de le sauvegarder
             if self.pk:  # vérifie que l'objet existe déjà en base
                 self.delete()

@@ -154,7 +154,7 @@ class ContenirUpdateView(UpdateView):
 
     def form_valid(self, form):
         instance = form.save(commit=False)  # pas encore sauvegardé en base
-        if instance.qte == 0:
+        if instance.qte > 0:
             # Si la quantité est zéro, supprime l'objet s'il existe déjà
             if instance.pk:
                 instance.delete()

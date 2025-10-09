@@ -9,10 +9,6 @@
         <li>Id du rayon : {{ray.idRayon }} </li>
     </ul>
 
-
-
-
-
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
             <h4>Ce rayon contient <strong> {{total_nb_produit}} </strong> produit(s) pour un total de
@@ -34,7 +30,7 @@
                                 <li>Total : {{ data.total_produit}} €</li>
                             </ul>
                             <a href="{% url 'dtl_prdt' data.produit.refProd %}" class="btn btn-primary mt-2">Détails</a>
-                            <a href="{% url 'cntnr-chng' ray.idRayon data.produit.refProd %}" class="btn btn-success mt-2">Modifier la contenance</a>
+                            <a href="{% url 'cntnr-chng' ray.idRayon data.produit.refProd %}" class="btn btn-warning mt-2">Modifier la contenance</a>
                             <a href="{% url 'cntnr-dlt' ray.idRayon data.produit.refProd %}" class="btn btn-danger mt-2">Supprimer du rayon</a>
                         </div>
                     </div>

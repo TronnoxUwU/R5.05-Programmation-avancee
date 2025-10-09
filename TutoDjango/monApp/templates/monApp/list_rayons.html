@@ -24,9 +24,10 @@
                 <td><a href="{% url 'rayon' data.ray.idRayon %}">{{ data.ray.nomRayon }} </a></td>
                 <td>{{ data.total_stock }} €</td>
                 <td>
+                    <a href="{% url 'cntnr-crt' data.ray.idRayon %}" class="btn btn-success btn-sm">Ajouter un produit</a>
                     <a href="{% url 'rayon-chng' data.ray.idRayon %}" class="btn btn-warning btn-sm">modifier</a>
                     <a href="{% url 'rayon-dlt' data.ray.idRayon %}" class="btn btn-danger btn-sm">Supprimer</a>
-                    <a href="{% url 'cntnr-crt' data.ray.idRayon %}" class="btn btn-success btn-sm">Ajouter un produit</a>
+                    
                 </td>
             </tr>
         {% endfor %}

@@ -10,7 +10,7 @@ class ProduitForm(forms.ModelForm):
     class Meta:
         model = Produit
         fields = '__all__'
-        exclude = ('categorie', 'status')
+        exclude = ('status',)
 
 class CategorieForm(forms.ModelForm):
     class Meta:
