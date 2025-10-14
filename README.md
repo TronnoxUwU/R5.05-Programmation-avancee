@@ -26,5 +26,12 @@ Installation des dépendances:
   - Histoire de performances
   - Un peu de décoration
   - Barre de recherche
-- 9/10/2025 - Fin TD4 & Debut TD 5:
+- 9/10/2025 - Fin TD4 & Debut TP 4:
   - Ajout Exercice récapitulatif
+- 14/10/2025 - TP 4 tests:
+  - Tester les modèles
+  - Tester les formulaires
+  - Tester les URLs
+
+todo :
+@method_decorator(login_required) pour les edit / ajout / suppr
