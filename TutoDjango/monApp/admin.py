@@ -3,8 +3,6 @@ from .models import Produit
 from .models import Categorie
 from .models import Statut
 from .models import Rayon
-from .models import Contenir
-
 from decimal import Decimal, ROUND_HALF_UP
 # Register your models here.
 class ProduitFilter(admin.SimpleListFilter):

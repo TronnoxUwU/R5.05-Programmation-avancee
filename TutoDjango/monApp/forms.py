@@ -33,7 +33,6 @@ class ContenirForm(forms.ModelForm):
         fields = '__all__'
         exclude = ('idRayon',)
 
-
 class ContenirModifForm(forms.ModelForm):
     class Meta:
         model = Contenir
