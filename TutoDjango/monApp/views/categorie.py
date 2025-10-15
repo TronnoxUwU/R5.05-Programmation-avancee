@@ -5,7 +5,10 @@ from django.http import HttpResponse
 from django.views.generic import CreateView, DeleteView, UpdateView, ListView, DetailView
 from django.urls import reverse_lazy
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+@method_decorator(login_required, name='dispatch')
 class CategorieCreateView(CreateView):
     model = Categorie
     form_class=CategorieForm
@@ -20,11 +23,13 @@ class CategorieCreateView(CreateView):
         cat = form.save()
         return redirect('categorie', cat.idCat)
     
+@method_decorator(login_required, name='dispatch')
 class CategorieDeleteView(DeleteView):
     model = Categorie
     template_name = "monApp/delete_categorie.html"
     success_url = reverse_lazy('categories')
 
+@method_decorator(login_required, name='dispatch')
 class CategorieUpdateView(UpdateView):
     model = Categorie
     form_class=CategorieForm

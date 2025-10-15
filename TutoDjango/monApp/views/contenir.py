@@ -5,7 +5,10 @@ from django.http import HttpResponse
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+@method_decorator(login_required, name='dispatch')
 class ContenirCreateView(CreateView):
     model = Contenir
     form_class=ContenirForm
@@ -21,6 +24,7 @@ class ContenirCreateView(CreateView):
         ray = form.save()
         return redirect('rayon', self.kwargs['pk'])
     
+@method_decorator(login_required, name='dispatch')
 class ContenirDeleteView(DeleteView):
     model = Contenir
     template_name = "monApp/delete_rayon.html"
@@ -33,6 +37,7 @@ class ContenirDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('rayon', kwargs={'pk': self.object.idRayon.idRayon})
     
+@method_decorator(login_required, name='dispatch')
 class ContenirUpdateView(UpdateView):
     model = Contenir
     form_class=ContenirModifForm

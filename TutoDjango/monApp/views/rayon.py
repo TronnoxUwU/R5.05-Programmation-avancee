@@ -3,12 +3,12 @@ from monApp.models import Rayon,Contenir
 from monApp.forms import RayonForm
 from django.http import HttpResponse
 from django.views.generic import CreateView, DeleteView, UpdateView, ListView, DetailView
-from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.db.models import Prefetch
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-
+@method_decorator(login_required, name='dispatch')
 class RayonCreateView(CreateView):
     model = Rayon
     form_class=RayonForm
@@ -23,11 +23,13 @@ class RayonCreateView(CreateView):
         ray = form.save()
         return redirect('rayon', ray.idRayon)
 
+@method_decorator(login_required, name='dispatch')
 class RayonDeleteView(DeleteView):
     model = Rayon
     template_name = "monApp/delete_rayon.html"
     success_url = reverse_lazy('rayons')
 
+@method_decorator(login_required, name='dispatch')
 class RayonUpdateView(UpdateView):
     model = Rayon
     form_class=RayonForm

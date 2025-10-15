@@ -4,7 +4,10 @@ from monApp.forms import ProduitForm
 from django.http import HttpResponse
 from django.views.generic import CreateView, DeleteView, UpdateView, ListView, DetailView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+@method_decorator(login_required, name='dispatch')
 class ProduitCreateView(CreateView):
     model = Produit
     form_class=ProduitForm
@@ -19,11 +22,13 @@ class ProduitCreateView(CreateView):
         context['titre'] = "Création d'un nouveau produit"
         return context
     
+@method_decorator(login_required, name='dispatch')
 class ProduitDeleteView(DeleteView):
     model = Produit
     template_name = "monApp/delete_produit.html"
     success_url = reverse_lazy('lst_prdts')
 
+@method_decorator(login_required, name='dispatch')
 class ProduitUpdateView(UpdateView):
     model = Produit
     form_class=ProduitForm
