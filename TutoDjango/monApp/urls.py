@@ -11,15 +11,12 @@ urlpatterns = [
 
     path('home', views.HomeView.as_view(), name='home'),
     path('home/<param>', views.HomeView.as_view(), name='home'),
-
     path('contact/',  views.ContactView, name='contact'),
     path('email/',  views.EmailView.as_view(), name='email-sent'),
-    
     path('about/', views.AboutView.as_view(), name='about'),
 
     path('produits/',views.ProduitListView.as_view(), name="lst_prdts"),
     path('produit/<pk>/',views.ProduitDetailView.as_view(), name='dtl_prdt'),
-
     path("produit/",views.ProduitCreateView.as_view(), name="crt-prdt"),
     path("produit/<pk>/update/",views.ProduitUpdateView.as_view(), name="prdt-chng"),
     path("produit/<pk>/delete/",views.ProduitDeleteView.as_view(), name="dlt-prdt"),
@@ -38,6 +35,7 @@ urlpatterns = [
     path('rayon/<int:pk>/',views.RayonDetailView.as_view(),name='rayon'),
     path('rayon/<pk>/update',views.RayonUpdateView.as_view() ,name='rayon-chng'),
     path('rayon/<pk>/delete',views.RayonDeleteView.as_view() ,name='rayon-dlt'),
+    
     path('rayon/<pk>/cntnr', views.ContenirCreateView.as_view(), name='cntnr-crt'),
     path('rayon/<pk>/cntnr/<prod>/update', views.ContenirUpdateView.as_view(), name='cntnr-chng'),
     path('rayon/<pk>/cntnr/<prod>/delete', views.ContenirDeleteView.as_view(), name='cntnr-dlt'),

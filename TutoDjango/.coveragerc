@@ -1,0 +1,7 @@
+[run]
+Source=monApp
+omit =
+    */migrations/*
+    */settings/*
+    *__init__.py
+    */tests/*

@@ -32,6 +32,10 @@ Installation des dépendances:
   - Tester les modèles
   - Tester les formulaires
   - Tester les URLs
+  - Tester les vues
+- 15/10/2025 (Travail maison) - TP 4 fin:
+  - Taux de couverture de test
+  - Réorganisation des views
 
 todo :
 @method_decorator(login_required) pour les edit / ajout / suppr
