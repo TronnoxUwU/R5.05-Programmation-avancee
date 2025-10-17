@@ -37,3 +37,10 @@ Installation des dépendances:
   - Taux de couverture de test
   - Réorganisation des views
   - Routes sécurisées
+- 16/10/202 - TD 5:
+  - Serializers et APIViews
+  - ModelViewSet et routeur
+
+## Coverage de l'application
+
+![screenshot du coverage](./img/coverage.png)

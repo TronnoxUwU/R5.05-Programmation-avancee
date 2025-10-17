@@ -1,11 +1,5 @@
-from django.shortcuts import redirect
-from monApp.models import Contenir
-from monApp.forms import ContenirForm, ContenirModifForm
-from django.http import HttpResponse
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
